@@ -137,12 +137,10 @@ public class MedianFilter implements BufferedImageOp {
                     counter++;
                 }
 
-                if (bytesCurrent != null) {
-                    rValue[counter] = bytesCurrent[0];
-                    gValue[counter] = bytesCurrent[1];
-                    bValue[counter] = bytesCurrent[2];
-                    counter++;
-                }
+                rValue[counter] = bytesCurrent[0];
+                gValue[counter] = bytesCurrent[1];
+                bValue[counter] = bytesCurrent[2];
+                counter++;
 
                 if (bytesBottomMiddle != null) {
                     rValue[counter] = bytesBottomMiddle[0];
