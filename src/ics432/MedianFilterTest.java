@@ -23,7 +23,7 @@ public class MedianFilterTest {
 
         // Parse command-line arguments
         if (args.length != 1) {
-            System.err.println("Usage: java MedianFilterExample <jpg file path>");
+            System.err.println("Usage: java MedianFilterTest <jpg file path>");
             System.err.println("       (output image saved to ./" + output_file_name);
             System.exit(1);
         }
