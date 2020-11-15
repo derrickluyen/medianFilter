@@ -183,6 +183,11 @@ public class MedianFilter implements BufferedImageOp {
                 bytesCurrent[1] = gValue[medianIndex];
                 bytesCurrent[2] = bValue[medianIndex];
 
+                // reset the rgb value arrays for next usage
+                rValue = new byte[9];
+                gValue = new byte[9];
+                bValue = new byte[9];
+
                 // set new pixel value of destination buffered image
                 dest.setRGB(x, y, converter.bytesToInt(bytesCurrent));
             }
