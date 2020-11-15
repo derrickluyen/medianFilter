@@ -24,9 +24,8 @@ public class MedianFilter implements BufferedImageOp {
         byte[] bytesMiddleRight;
         byte[] bytesBottomRight;
 
-        int notNullPixels = 0;
+        int counter = 0;
         int medianIndex;
-        int arrayIndexCounter = 0;
 
         byte[] rValue = new byte[9];
         byte[] gValue = new byte[9];
@@ -38,7 +37,7 @@ public class MedianFilter implements BufferedImageOp {
                 try {
                     // the top left pixel
                     bytesTopLeft = converter.intToBytes(src.getRGB(x - 1, y - 1));
-                    notNullPixels++;
+                    counter++;
                 } catch (ArrayIndexOutOfBoundsException e) {
                     bytesTopLeft = null;
                 }
@@ -46,7 +45,7 @@ public class MedianFilter implements BufferedImageOp {
                 try {
                     // the middle left pixel
                     bytesMiddleLeft = converter.intToBytes(src.getRGB(x - 1, y));
-                    notNullPixels++;
+                    counter++;
                 } catch (ArrayIndexOutOfBoundsException e) {
                     bytesMiddleLeft = null;
                 }
@@ -54,15 +53,15 @@ public class MedianFilter implements BufferedImageOp {
                 try {
                     // the bottom left pixel
                     bytesBottomLeft = converter.intToBytes(src.getRGB(x - 1, y + 1));
-                    notNullPixels++;
+                    counter++;
                 } catch (ArrayIndexOutOfBoundsException e) {
                     bytesBottomLeft = null;
                 }
 
                 try {
-                    // the middle left pixel
+                    // the top middle pixel
                     bytesTopMiddle = converter.intToBytes(src.getRGB(x, y - 1));
-                    notNullPixels++;
+                    counter++;
                 } catch (ArrayIndexOutOfBoundsException e) {
                     bytesTopMiddle = null;
                 }
@@ -70,12 +69,12 @@ public class MedianFilter implements BufferedImageOp {
                 // the current pixel
                 // should never throw ArrayIndexOutOfBoundsException
                 bytesCurrent = converter.intToBytes(src.getRGB(x, y));
-                notNullPixels++;
+                counter++;
 
                 try {
-                    // the middle right pixel
+                    // the bottom middle pixel
                     bytesBottomMiddle = converter.intToBytes(src.getRGB(x, y + 1));
-                    notNullPixels++;
+                    counter++;
                 } catch (ArrayIndexOutOfBoundsException e) {
                     bytesBottomMiddle = null;
                 }
@@ -83,7 +82,7 @@ public class MedianFilter implements BufferedImageOp {
                 try {
                     // the top right pixel
                     bytesTopRight = converter.intToBytes(src.getRGB(x + 1, y - 1));
-                    notNullPixels++;
+                    counter++;
                 } catch (ArrayIndexOutOfBoundsException e) {
                     bytesTopRight = null;
                 }
@@ -91,7 +90,7 @@ public class MedianFilter implements BufferedImageOp {
                 try {
                     // the middle right pixel
                     bytesMiddleRight = converter.intToBytes(src.getRGB(x + 1, y));
-                    notNullPixels++;
+                    counter++;
                 } catch (ArrayIndexOutOfBoundsException e) {
                     bytesMiddleRight = null;
                 }
@@ -99,82 +98,82 @@ public class MedianFilter implements BufferedImageOp {
                 try {
                     // the bottom right pixel
                     bytesBottomRight = converter.intToBytes(src.getRGB(x + 1, y + 1));
-                    notNullPixels++;
+                    counter++;
                 } catch (ArrayIndexOutOfBoundsException e) {
                     bytesBottomRight = null;
                 }
 
                 // get median index
-                medianIndex = notNullPixels / 2;
+                medianIndex = counter / 2;
 
                 // reset counter to zero
-                notNullPixels = 0;
+                counter = 0;
 
                 if (bytesTopLeft != null) {
-                    rValue[arrayIndexCounter] = bytesTopLeft[0];
-                    gValue[arrayIndexCounter] = bytesTopLeft[1];
-                    bValue[arrayIndexCounter] = bytesTopLeft[2];
-                    arrayIndexCounter++;
+                    rValue[counter] = bytesTopLeft[0];
+                    gValue[counter] = bytesTopLeft[1];
+                    bValue[counter] = bytesTopLeft[2];
+                    counter++;
                 }
 
                 if (bytesMiddleLeft != null) {
-                    rValue[arrayIndexCounter] = bytesMiddleLeft[0];
-                    gValue[arrayIndexCounter] = bytesMiddleLeft[1];
-                    bValue[arrayIndexCounter] = bytesMiddleLeft[2];
-                    arrayIndexCounter++;
+                    rValue[counter] = bytesMiddleLeft[0];
+                    gValue[counter] = bytesMiddleLeft[1];
+                    bValue[counter] = bytesMiddleLeft[2];
+                    counter++;
                 }
 
                 if (bytesBottomLeft != null) {
-                    rValue[arrayIndexCounter] = bytesBottomLeft[0];
-                    gValue[arrayIndexCounter] = bytesBottomLeft[1];
-                    bValue[arrayIndexCounter] = bytesBottomLeft[2];
-                    arrayIndexCounter++;
+                    rValue[counter] = bytesBottomLeft[0];
+                    gValue[counter] = bytesBottomLeft[1];
+                    bValue[counter] = bytesBottomLeft[2];
+                    counter++;
                 }
 
                 if (bytesTopMiddle != null) {
-                    rValue[arrayIndexCounter] = bytesTopMiddle[0];
-                    gValue[arrayIndexCounter] = bytesTopMiddle[1];
-                    bValue[arrayIndexCounter] = bytesTopMiddle[2];
-                    arrayIndexCounter++;
+                    rValue[counter] = bytesTopMiddle[0];
+                    gValue[counter] = bytesTopMiddle[1];
+                    bValue[counter] = bytesTopMiddle[2];
+                    counter++;
                 }
 
                 if (bytesCurrent != null) {
-                    rValue[arrayIndexCounter] = bytesCurrent[0];
-                    gValue[arrayIndexCounter] = bytesCurrent[1];
-                    bValue[arrayIndexCounter] = bytesCurrent[2];
-                    arrayIndexCounter++;
+                    rValue[counter] = bytesCurrent[0];
+                    gValue[counter] = bytesCurrent[1];
+                    bValue[counter] = bytesCurrent[2];
+                    counter++;
                 }
 
                 if (bytesBottomMiddle != null) {
-                    rValue[arrayIndexCounter] = bytesBottomMiddle[0];
-                    gValue[arrayIndexCounter] = bytesBottomMiddle[1];
-                    bValue[arrayIndexCounter] = bytesBottomMiddle[2];
-                    arrayIndexCounter++;
+                    rValue[counter] = bytesBottomMiddle[0];
+                    gValue[counter] = bytesBottomMiddle[1];
+                    bValue[counter] = bytesBottomMiddle[2];
+                    counter++;
                 }
 
                 if (bytesTopRight != null) {
-                    rValue[arrayIndexCounter] = bytesTopRight[0];
-                    gValue[arrayIndexCounter] = bytesTopRight[1];
-                    bValue[arrayIndexCounter] = bytesTopRight[2];
-                    arrayIndexCounter++;
+                    rValue[counter] = bytesTopRight[0];
+                    gValue[counter] = bytesTopRight[1];
+                    bValue[counter] = bytesTopRight[2];
+                    counter++;
                 }
 
                 if (bytesMiddleRight != null) {
-                    rValue[arrayIndexCounter] = bytesMiddleRight[0];
-                    gValue[arrayIndexCounter] = bytesMiddleRight[1];
-                    bValue[arrayIndexCounter] = bytesMiddleRight[2];
-                    arrayIndexCounter++;
+                    rValue[counter] = bytesMiddleRight[0];
+                    gValue[counter] = bytesMiddleRight[1];
+                    bValue[counter] = bytesMiddleRight[2];
+                    counter++;
                 }
 
                 if (bytesBottomRight != null) {
-                    rValue[arrayIndexCounter] = bytesBottomRight[0];
-                    gValue[arrayIndexCounter] = bytesBottomRight[1];
-                    bValue[arrayIndexCounter] = bytesBottomRight[2];
-                    arrayIndexCounter++;
+                    rValue[counter] = bytesBottomRight[0];
+                    gValue[counter] = bytesBottomRight[1];
+                    bValue[counter] = bytesBottomRight[2];
+                    counter++;
                 }
 
                 // reset counter to zero
-                arrayIndexCounter = 0;
+                counter = 0;
 
                 // sort the arrays
                 Arrays.sort(rValue);
